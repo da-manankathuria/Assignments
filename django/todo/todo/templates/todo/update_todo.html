@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Update todo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body style="background-color:#bcc5d4;">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+    
+    <H1 style="text-align: center; margin-top: 10px; margin-bottom: 40px;">My Todos</H1>
+
+
+
+
+    <div class="container" style="width: 25rem">
+        <form action ="" method = "POST">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="task" class="form-label">Task</label>
+              <input type="text" class="form-control" name="task" value={{task}}>
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <input type="text" class="form-control" name="description" value={{description}}>
+            </div>
+            <div class="mb-3">
+                <label for="tag" class="form-label">Tag</label>
+                <input type="text" class="form-control" name="tag" value={{tag}}>
+              </div>
+            <button type="submit" class="btn btn-primary">Add </button>
+          </form>
+    </div>
+
+
+
+
+</body>
+</html>
