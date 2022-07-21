@@ -27,8 +27,7 @@ def delete(request,id):
 def update(request,id):
    
     if request.method == "POST":
-        db = alltodos()     
-        db.id=id
+        db = alltodos.objects.get(id=id) 
         db.task = request.POST.get('task')
         db.description = request.POST.get('description')        
         db.tag=request.POST.get('tag')
