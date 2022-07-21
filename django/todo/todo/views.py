@@ -11,7 +11,8 @@ def todo_list(request):
         db.task = request.POST.get('task')
         db.description = request.POST.get('description')
         db.tag = request.POST.get('tag')
-        db.save()
+        if db.task and db.description != "":
+            db.save()
         todos = alltodos.objects.all()
         return render(request, 'todo/todo_list.html',{'todos':todos})
     return render(request, 'todo/todo_list.html', {'todos':todos})
@@ -29,7 +30,7 @@ def update(request,id):
         db = alltodos()     
         db.id=id
         db.task = request.POST.get('task')
-        db.description = request.POST.get('description')
+        db.description = request.POST.get('description')        
         db.tag=request.POST.get('tag')
         db.save()
         return redirect(todo_list)
