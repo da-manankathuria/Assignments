@@ -51,3 +51,8 @@ def markincompleted(request,id):
     todo.Status=False
     todo.save()
     return redirect(todo_list)  
+
+#sort a todo
+def sort(request):
+    todos = alltodos.objects.all().order_by('-created_date')
+    return render(request, 'todo/todo_list.html',{'todos':todos})    
