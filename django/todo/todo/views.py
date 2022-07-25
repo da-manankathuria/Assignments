@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from pytz import timezone
 from .models import alltodos
 #from .forms import PostForm
-# show all todo
+# show all todo and add todo
 def todo_list(request):
     todos = alltodos.objects.all()
     if request.method == "POST":
@@ -11,7 +11,8 @@ def todo_list(request):
         db.task = request.POST.get('task')
         db.description = request.POST.get('description')
         db.tag = request.POST.get('tag')
-        db.save()
+        if db.task and db.description != "":
+            db.save()
         todos = alltodos.objects.all()
         return render(request, 'todo/todo_list.html',{'todos':todos})
     return render(request, 'todo/todo_list.html', {'todos':todos})
@@ -26,10 +27,9 @@ def delete(request,id):
 def update(request,id):
    
     if request.method == "POST":
-        db = alltodos()     
-        db.id=id
+        db = alltodos.objects.get(id=id) 
         db.task = request.POST.get('task')
-        db.description = request.POST.get('description')
+        db.description = request.POST.get('description')        
         db.tag=request.POST.get('tag')
         db.save()
         return redirect(todo_list)
@@ -39,13 +39,7 @@ def update(request,id):
 
 # mark as complete
 def markcomplete(request,id):
-    db = alltodos.objects.all().filter(id=id)
-    todo= alltodos()
-    todo.id=id
-    todo.task=db[0].task
-    todo.description=db[0].description
-    todo.tag=db[0].tag
-    todo.created_date=db[0].created_date
+    todo = alltodos.objects.get(id=id)
     todo.Status=True
     todo.save()
     return redirect(todo_list)
@@ -53,13 +47,12 @@ def markcomplete(request,id):
 #mark as incomplete
 
 def markincompleted(request,id):
-    db = alltodos.objects.all().filter(id=id)
-    todo= alltodos()
-    todo.id=id
-    todo.task=db[0].task
-    todo.description=db[0].description
-    todo.tag=db[0].tag
-    todo.created_date=db[0].created_date
+    todo = alltodos.objects.get(id=id)
     todo.Status=False
     todo.save()
-    return redirect(todo_list)    
+    return redirect(todo_list)  
+
+#sort a todo
+def sort(request):
+    todos = alltodos.objects.all().order_by('-created_date')
+    return render(request, 'todo/todo_list.html',{'todos':todos})    

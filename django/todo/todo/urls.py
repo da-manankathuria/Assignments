@@ -7,6 +7,7 @@ urlpatterns = [
     path('update/?P<int:id>/',views.update , name='update'),
     path('markcompleted/?P<int:id>/',views.markcomplete , name='markcompleted'),
     path('markincompleted/?P<int:id>/',views.markincompleted , name='markincompleted'),
+    path('sorted/',views.sort,name="sort")
 
 
 ]
