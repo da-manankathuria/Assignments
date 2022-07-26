@@ -1,0 +1,33 @@
+--Give me list of Customers whose First Name starts with N Or they Live in city xyz.  (Return me Customer Id, First name, Last Name, City) 
+
+select CustomerId as ID ,FirstName as First_Name , LastName as Last_Name ,City  from customers where ( ( FirstName like 'N%' ) OR ( City = 'xyz' ) );
+
+
+
+--Give me list of Tracks where unit prize range between x and y and whose composer name does not contain 'T' (Return me Track Id, Name, Composer, Unit Price) (2 Marks)
+select TrackId , Name , Composer , UnitPrice from tracks where ( (UnitPrice BETWEEN 0.1 and 1 ) and (name NOT LIKE '%T%'))
+
+
+
+
+--Calculate the sum of total Invoice bill and average of total Invoice bill for each day of month (June 2020). (Return me Invoice Date, Sum of Total bill for that day, Average of Total Bill for that day)
+
+--this can also be solved using like operator but between oeprator is faster than like operator
+
+ 
+SELECT InvoiceDate , sum(total) as Total , avg(total) as Average
+FROM invoices 
+WHERE InvoiceDate BETWEEN '2012-06-01' AND '2012-06-31'
+GROUP BY InvoiceDate
+
+
+
+--1	Give me list of Artist IDs,  whose none of the tracks are present in any Playlist. (Return Artist IDs and their names)
+
+select ArtistId, Name from artists where ArtistId NOT IN
+
+(
+select ArtistId from albums LEFT JOIN tracks on albums.AlbumId = tracks.AlbumId
+
+LEFT JOIN playlist_track on tracks.TrackId = playlist_track.TrackId
+);
