@@ -21,6 +21,10 @@ WHERE InvoiceDate BETWEEN '2012-06-01' AND '2012-06-31'
 GROUP BY InvoiceDate
 
 
+--2 Total Quantity of Each Track ID purchased so far. Sort the Track IDs in Descending order of it’s total Count (Return me Track ID and its total Quantity)
+
+select TrackId , count(Quantity) as total from invoice_items group by TrackId order by total DESC
+
 
 --1	Give me list of Artist IDs,  whose none of the tracks are present in any Playlist. (Return Artist IDs and their names)
 
